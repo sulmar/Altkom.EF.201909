@@ -100,7 +100,7 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
 
 ### Konwencja relacji Jeden-do-wielu
 
-#### Konwencja 1
+#### Konwencja 1 - navigation property
 Encja zawiera navigation property.
 
 ``` csharp
@@ -122,7 +122,7 @@ public class Customer
 ```
 Zamówienie zawiera referencje do navigation property typu klient. EF utworzy shadow property CustomerId w modelu koncepcyjnym, które będzie mapowane do kolumny CustomerId w tabeli Orders.
 
-#### Konwencja 2
+#### Konwencja 2 - kolekcja
 Encja zawiera kolekcję.
 
 ``` csharp
@@ -145,7 +145,7 @@ public class Customer
 
 W bazie danych będzie taki sam rezultat jak w przypadku konwencji 1.
 
-#### Konwencja 3
+#### Konwencja 3 - navigation property i kolekcja
 
 Relacja zawiera navigation property po obu stronach. W rezultacie otrzymujemy połączenie konwencji 1 i 2.
 
@@ -170,7 +170,7 @@ public class Customer
 
 ```
 
-#### Konwencja 4
+#### Konwencja 4 - właściwość klucz obcy
 Konwencja z uzyciem wlasciwosci foreign key
 
 
