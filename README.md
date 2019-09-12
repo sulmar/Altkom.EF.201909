@@ -200,4 +200,129 @@ public class Customer
 
 ```
 
+## Dziedziczenie
 
+Relacyjne bazy danych nie posiadają mechanizmu dziedziczenia, dlatego musi być to w jakiś sposób mapowane.
+
+Models.cs
+~~~ csharp
+public abstract class Item : BaseEntity
+{
+    public string Name { get; set; }
+    public decimal UnitPrice { get; set; }
+}
+
+public class Product : Item
+{
+    public string SerialNumber { get; set; }
+    public string Color { get; set; }
+}
+
+public class Service : Item
+{
+    public TimeSpan Duration { get; set; }
+}
+~~~
+
+### TPH (Table Per Hierarchy)
+
+#### Dwie lub więcej encji umieszczonych jest w modelu:
+ShopContext.cs
+
+~~~ csharp
+public class ShopContext : DbContext
+{
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Service> Services { get; set; }
+}
+~~~
+
+#### W przypadku gdy nie chcemy publikować wszystkich encji
+
+~~~ csharp
+public class ShopContext : DbContext
+{
+    public DbSet<Item> Items { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+         modelBuilder.Entity<Product>().HasBaseType<Item>();
+         modelBuilder.Entity<Service>().HasBaseType<Item>();
+    }
+}      
+~~~
+
+## Typy złozone (Complex Type)
+
+Models.cs
+
+~~~ csharp 
+
+public class Address
+ {
+     public string City { get; set; }
+     public string Street { get; set; }
+     public string Country { get; set; }
+     public string PostCode { get; set; }
+ }
+    
+public class Customer
+{
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public Address InvoiceAddress { get; set; }
+    public Address ShippingAddress { get; set; }
+}
+
+~~~
+
+### Umieszczenie w tej samej tabeli
+
+ShopContext.cs
+
+~~~ csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(s => s.InvoiceAddress);
+
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(s => s.ShippingAddress);
+}
+
+~~~
+
+
+### Przeniesienie do osobnej tabeli
+
+~~~ csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(s => s.InvoiceAddress)
+            .ToTable("InvoiceAddress");
+            
+        modelBuilder.Entity<Customer>()
+            .OwnsOne(s => s.ShippingAddress)
+            .ToTable("ShippingAddress");
+}
+
+~~~
+
+## Wypełnianie danych
+
+~~~ csharp
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    {
+        public void Configure(EntityTypeBuilder<Product> builder)
+        {
+             builder.HasData(
+                new Product { Id = 1, Name = "Product 1", Color = "Red", UnitPrice = 1.99m },
+                new Product { Id = 2, Name = "Product 2", Color = "Blue", UnitPrice = 1.99m },
+                new Product { Id = 3, Name = "Product 3", Color = "Green", UnitPrice = 1.99m }
+            );
+        }
+    }
+~~~
