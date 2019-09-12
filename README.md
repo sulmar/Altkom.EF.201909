@@ -138,7 +138,7 @@ public class Customer
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
-    public List<Order> Orders { get; set; }
+    public List<Order> Orders { get; set; } // Kolekcja
 }
 
 ```
@@ -165,12 +165,12 @@ public class Customer
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
-    public List<Order> Orders { get; set; }
+    public List<Order> Orders { get; set; } // Kolekcja
 }
 
 ```
 
-#### Konwencja 4 - właściwość klucz obcy
+#### Konwencja 4 - navigation property i klucz obcy
 Konwencja z uzyciem wlasciwosci foreign key
 
 
