@@ -6,6 +6,7 @@
         public string LastName { get; set; }
         public Address InvoiceAddress { get; set; }
         public Address ShippingAddress { get; set; }
+        public decimal Salary { get; set; }
         public bool IsRemoved { get; set; }
     }
 }
