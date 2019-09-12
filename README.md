@@ -98,6 +98,11 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
 ## Konwencje
 
 
+### Klucz podstawowy
+
+Nazwa właściwości kończy się na Id.
+
+
 ### Konwencja relacji Jeden-do-wielu
 
 #### Konwencja 1 - navigation property
