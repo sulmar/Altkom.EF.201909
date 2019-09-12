@@ -49,3 +49,50 @@
 - ``` Update-Database -verbose ``` - aktualizacja bazy danych do najnowszej wersji + wyświetlanie logu
 - ``` Update-Database {migration} ``` - aktualizacja bazy danych do podanej 
 - ``` Scaffold-DbContext {connectionstring} Microsoft. Models ``` - wygenerowanie modelu na podstawie bazy danych
+
+
+## Instalacja EF Core
+
+~~~ bash
+dotnet add package Microsoft.EntityFrameworkCore
+~~~
+
+## Instalacja dostawcy bazy danych SQL Server
+~~~ bash
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+~~~
+
+### Dostawcy baz danych
+
+| Database | NuGet Package  |
+|---|---|
+| SQL Server | Microsoft.EntityFrameworkCore.SqlServer |
+| SQLite | Microsoft.EntityFrameworkCore.SQLite |
+| MySQL | MySql.Data.EntityFrameworkCore |
+| PostgreSQL | Npgsql.EntityFrameworkCore.PostgreSQL |
+| SQL Compact | EntityFrameworkCore.SqlServerCompact40 |
+| In-memory | 	Microsoft.EntityFrameworkCore.InMemory |
+
+
+## DbContext
+Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbContext reprezentuje sesję z bazą danych.
+
+### Funkcje DbContext
+ 1. Zarządzanie połączeniem z bazą danych
+ 2. Konfiguracja modelu i relacji
+ 3. Odpytywanie bazy danych
+ 4. Zapisywanie danych do bazy danych
+ 5. Śledzenie zmian
+ 6. Cache'owanie
+ 7. Zarządzanie transakcjami
+
+## Właściwości DbContext
+| Metoda | Użycie |
+|---|---|
+| ChangeTracker | Dostarcza informacje i operacje do śledzenie obiektów  |
+| Database | Dostarcza informacje i operacje bazy danych |
+| Model | Zwraca metadane o encjach, ich relacjach i w jaki sposób mapowane są do bazy danych |
+
+
+
+
