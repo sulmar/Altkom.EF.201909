@@ -95,4 +95,104 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
 
 
 
+## Konwencje
+
+
+### Konwencja relacji Jeden-do-wielu
+
+#### Konwencja 1
+Encja zawiera navigation property.
+
+``` csharp
+public class Order
+{
+    public int OrderId { get; set; }   
+    public string OrderNumber { get; set; }  
+
+    public Customer Customer { get; set; } // Navigation property
+}
+
+public class Customer
+{
+    public int CustomerId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+}
+
+```
+Zamówienie zawiera referencje do navigation property typu klient. EF utworzy shadow property CustomerId w modelu koncepcyjnym, które będzie mapowane do kolumny CustomerId w tabeli Orders.
+
+#### Konwencja 2
+Encja zawiera kolekcję.
+
+``` csharp
+public class Order
+{
+    public int OrderId { get; set; }       
+    public string OrderNumber { get; set; } 
+}
+
+public class Customer
+{
+    public int CustomerId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public List<Order> Orders { get; set; }
+}
+
+```
+
+W bazie danych będzie taki sam rezultat jak w przypadku konwencji 1.
+
+#### Konwencja 3
+
+Relacja zawiera navigation property po obu stronach. W rezultacie otrzymujemy połączenie konwencji 1 i 2.
+
+
+``` csharp
+public class Order
+{
+    public int OrderId { get; set; }       
+    public string OrderNumber { get; set; } 
+
+    public Customer Customer { get; set; } // Navigation property
+}
+
+public class Customer
+{
+    public int CustomerId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public List<Order> Orders { get; set; }
+}
+
+```
+
+#### Konwencja 4
+Konwencja z uzyciem wlasciwosci foreign key
+
+
+``` csharp
+public class Order
+{
+    public int OrderId { get; set; }       
+    public string OrderNumber { get; set; } 
+
+    public int CustomerId { get; set; }  // Foreign key property
+    public Customer Customer { get; set; } // Navigation property
+}
+
+public class Customer
+{
+    public int CustomerId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public List<Order> Orders { get; set; }
+}
+
+```
+
 
