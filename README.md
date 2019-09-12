@@ -111,7 +111,7 @@ Encja zawiera navigation property.
 ``` csharp
 public class Order
 {
-    public int OrderId { get; set; }   
+    public int Id { get; set; }   
     public string OrderNumber { get; set; }  
 
     public Customer Customer { get; set; } // Navigation property
@@ -119,7 +119,7 @@ public class Order
 
 public class Customer
 {
-    public int CustomerId { get; set; }
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 }
@@ -133,13 +133,13 @@ Encja zawiera kolekcję.
 ``` csharp
 public class Order
 {
-    public int OrderId { get; set; }       
+    public int Id { get; set; }       
     public string OrderNumber { get; set; } 
 }
 
 public class Customer
 {
-    public int CustomerId { get; set; }
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
@@ -158,7 +158,7 @@ Relacja zawiera navigation property po obu stronach. W rezultacie otrzymujemy po
 ``` csharp
 public class Order
 {
-    public int OrderId { get; set; }       
+    public int Id { get; set; }       
     public string OrderNumber { get; set; } 
 
     public Customer Customer { get; set; } // Navigation property
@@ -166,7 +166,7 @@ public class Order
 
 public class Customer
 {
-    public int CustomerId { get; set; }
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
@@ -182,7 +182,7 @@ Konwencja z uzyciem wlasciwosci foreign key
 ``` csharp
 public class Order
 {
-    public int OrderId { get; set; }       
+    public int Id { get; set; }       
     public string OrderNumber { get; set; } 
 
     public int CustomerId { get; set; }  // Foreign key property
@@ -191,7 +191,7 @@ public class Order
 
 public class Customer
 {
-    public int CustomerId { get; set; }
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
