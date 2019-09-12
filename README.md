@@ -86,7 +86,7 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
  6. Cache'owanie
  7. Zarządzanie transakcjami
 
-## Właściwości DbContext
+### Właściwości DbContext
 | Metoda | Użycie |
 |---|---|
 | ChangeTracker | Dostarcza informacje i operacje do śledzenie obiektów  |
