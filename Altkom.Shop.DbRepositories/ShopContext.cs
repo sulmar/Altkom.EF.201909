@@ -12,7 +12,7 @@ namespace Altkom.Shop.DbRepositories
     {
         public ShopContext(DbContextOptions options) : base(options)
         {
-            //this.Database.EnsureDeleted();
+            this.Database.EnsureDeleted();
             //this.Database.EnsureCreated();
 
             this.Database.Migrate();
