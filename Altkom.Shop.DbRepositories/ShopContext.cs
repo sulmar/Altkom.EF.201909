@@ -12,7 +12,7 @@ namespace Altkom.Shop.DbRepositories
     {
         public ShopContext(DbContextOptions options) : base(options)
         {
-            this.Database.EnsureDeleted();
+           //this.Database.EnsureDeleted();
             //this.Database.EnsureCreated();
 
             this.Database.Migrate();
@@ -23,11 +23,16 @@ namespace Altkom.Shop.DbRepositories
         public DbSet<Product> Products { get; set; }
         public DbSet<Service> Services { get; set; }
 
+       // public DbQuery<Customer> ActiveCustomers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
 
+            modelBuilder.Query<Customer>().ToView("vw_ActiveCustomers");
 
             base.OnModelCreating(modelBuilder);
         }

@@ -5,23 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Altkom.Shop.DbRepositories.Configurations
 {
-    class ServiceConfiguration : IEntityTypeConfiguration<Service>
-    {
-        public void Configure(EntityTypeBuilder<Service> builder)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 
-    class ProductConfiguration : IEntityTypeConfiguration<Product>
+    internal class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         private readonly ProductFaker productFaker;
 
-        ProductConfiguration()
+        public ProductConfiguration()
         {
             this.productFaker = new ProductFaker();
         }
-        
+
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {

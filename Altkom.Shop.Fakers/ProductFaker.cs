@@ -1,5 +1,6 @@
 ﻿using Altkom.Shop.Models;
 using Bogus;
+using System.Collections;
 
 namespace Altkom.Shop.Fakers
 {
