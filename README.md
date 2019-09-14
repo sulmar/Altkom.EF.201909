@@ -263,6 +263,86 @@ public class Customer
 
 ```
 
+### Konwencja relacji Jeden-do-jeden
+
+``` csharp
+public class Order
+{
+    public int OrderId { get; set; }       
+    public string OrderNumber { get; set; } 
+
+    public Payment Payment { get; set; } // Navigation property
+}
+
+public class Payment
+{
+    public int PaymentId { get; set; }
+    public decimal Amount { get; set; }
+
+    public int OrderId { get; set; }
+    public Order Order { get; set; }
+}
+
+```
+
+### Konwencja relacji wiele-do-wielu
+
+Obecnie w EF Core nie ma domyslnej konwencji, która konfiguruje relację wiele-do-wielu.
+
+
+
+## Konfiguracja relacji
+
+
+## Konfiguracja relacji jeden-do-jeden 
+
+``` csharp
+ modelBuilder.Entity<Order>()
+                .HasOne<Payment>()
+                .WithOne(p=>p.Order)
+                .HasForeignKey<Payment>(p=>p.PaymentId);
+```
+
+## Konfiguracja relacji jeden-do-wielu
+
+``` csharp
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasOne<Customer>()
+                .WithMany(c=>c.Orders)
+                .HasForeignKey(p=>p.CustomerId);
+``` 
+
+
+Alternatywnie mozna wyjsc od drugiej strony
+``` csharp
+            modelBuilder.Entity<Customer>()
+                .HasMany(c=>c.Orders)
+                .WithOne(o=>o.Customer)
+                .HasForeignKey(o=>o.CustomerId);
+
+
+        }
+```
+
+
+## Konfiguracja kaskadowego usuwania
+
+``` csharp
+modelBuilder.Entity<Customer>()
+                .HasMany(c=>c.Orders)
+                .WithOne(o=>o.Customer)
+                .HasForeignKey(o=>o.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+```
+
+Rodzaje:
+- Cascade - usuwa wszystkie encje wraz z encją nadrzędną
+- ClientSetNull - klucze obce w encjach zaleznych będą ustawione na null
+- Restrict - blokuje kaskadowe usuwanie
+- SetNull - klucze obce w encjach zaleznych będą ustawione na null
+
 ## Dziedziczenie
 
 Relacyjne bazy danych nie posiadają mechanizmu dziedziczenia, dlatego musi być to w jakiś sposób mapowane.
@@ -286,6 +366,7 @@ public class Service : Item
     public TimeSpan Duration { get; set; }
 }
 ~~~
+
 
 ### TPH (Table Per Hierarchy)
 
