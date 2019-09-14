@@ -95,6 +95,37 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
 
 
 
+### Utworzenie kontekstu
+
+~~~ csharp
+public class MyContext : DbContext
+{
+    public MyContext(DbContextOptions<MyContext> options)
+      :base(options)
+    { }
+
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Orders> Orders { get; set; }
+}
+~~~
+
+
+## Utworzenie instancji
+
+~~~ csharp
+
+    string connectionString = "Server=127.0.0.1,1433;Database=mydb;User Id=sa;Password=P@ssw0rd";
+
+    var options = new DbContextOptionsBuilder<MyContext>()
+        .UseSqlServer(connectionString)
+        .Options;
+
+    using (var context = new MyContext(options))
+    {
+        bool created = context.Database.EnsureCreated();      
+    }
+~~~
+
 ## Konwencje
 
 
