@@ -95,7 +95,7 @@ Klasa **DbContext** jest główną częścią Entity Framework. Instacja DbConte
 
 
 
-### Utworzenie kontekstu
+## Utworzenie kontekstu
 
 ~~~ csharp
 public class MyContext : DbContext
@@ -110,7 +110,7 @@ public class MyContext : DbContext
 ~~~
 
 
-## Utworzenie instancji
+## Utworzenie instancji DbContext
 
 ~~~ csharp
 
@@ -125,6 +125,38 @@ public class MyContext : DbContext
         bool created = context.Database.EnsureCreated();      
     }
 ~~~
+
+
+## Wstrzykiwanie DbContext
+
+### Bezpośrednie
+
+~~~ csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<MyContext>(options => options.UseSqlite("Data Source=blog.db"));
+}
+~~~
+
+W tym przypadku za kazdym razem gdy przyjdzie zadanie bedzie tworzona nowa instancja kontekstu i zwalniania po zakończeniu pracy.
+
+
+### Pula
+
+
+~~~ csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContextPool<MyContext>(options => options.UseSqlServer(connectionString));
+}
+~~~
+
+Zamiast tworzyc za kazdym razę nową instancję kod będze sprawdzac czy jest dostępna instancja w puli.
+
+
+Opis i porównanie wydajności:
+https://neelbhatt.com/2018/02/27/use-dbcontextpooling-to-improve-the-performance-net-core-2-1-feature/
+
 
 ## Konwencje
 
