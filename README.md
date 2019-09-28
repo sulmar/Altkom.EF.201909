@@ -22,6 +22,8 @@
 - ``` dotnet publish -c Release -r win10-x64``` - publikacja aplikacji dla Windows
 - ``` dotnet publish -c Release -r linux-x64``` - publikacja aplikacji dla Linux
 - ``` dotnet publish -c Release -r osx-x64``` - publikacja aplikacji dla MacOS
+- ``` dotnet add package {package-name} ``` - dodanie pakietu nuget do projektu
+- ``` dotnet remove package {package-name} ``` - usunięcie pakietu nuget do projektu
 
 
 # EF Core
